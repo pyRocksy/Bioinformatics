@@ -20,14 +20,18 @@ if ls ${FASTQ_DIR}/*_1.fastq.gz >/dev/null 2>&1; then
     echo "Input files are paired-end"
     # Quality control and preprocessing
     fastqc ${FASTQ_DIR}/*_1.fastq.gz ${FASTQ_DIR}/*_2.fastq.gz -o ${OUTPUT_DIR}/fastqc_results
-    trimmomatic PE ${FASTQ_DIR}/*_1.fastq.gz ${FASTQ_DIR}/*_2.fastq.gz ${OUTPUT_DIR}/output_1_paired.fq.gz ${OUTPUT_DIR}/output_1_unpaired.fq.gz ${OUTPUT_DIR}/output_2_paired.fq.gz ${OUTPUT_DIR}/output_2_unpaired.fq.gz ILLUMINACLIP:TruSeq3-PE.fa:2:30:10 LEADING:3 TRAILING:3 SLIDINGWINDOW:4:15 MINLEN:36
+    trimmomatic PE ${FASTQ_DIR}/*_1.fastq.gz ${FASTQ_DIR}/*_2.fastq.gz \
+        ${OUTPUT_DIR}/output_1_paired.fq.gz ${OUTPUT_DIR}/output_1_unpaired.fq.gz \
+        ${OUTPUT_DIR}/output_2_paired.fq.gz ${OUTPUT_DIR}/output_2_unpaired.fq.gz \
+        ILLUMINACLIP:TruSeq3-PE.fa:2:30:10 LEADING:3 TRAILING:3 SLIDINGWINDOW:4:15 MINLEN:36
     # Alignment and quantification
     hisat2 -x ${GENOME_DIR}/genome_index -1 ${OUTPUT_DIR}/output_1_paired.fq.gz -2 ${OUTPUT_DIR}/output_2_paired.fq.gz -S ${OUTPUT_DIR}/aligned_reads.sam
 else
     echo "Input files are single-end"
     # Quality control and preprocessing
     fastqc ${FASTQ_DIR}/*.fastq.gz -o ${OUTPUT_DIR}/fastqc_results
-    trimmomatic SE ${FASTQ_DIR}/*.fastq.gz ${OUTPUT_DIR}/output_trimmed.fastq.gz ILLUMINACLIP:TruSeq3-SE.fa:2:30:10 LEADING:3 TRAILING:3 SLIDINGWINDOW:4:15 MINLEN:36
+    trimmomatic SE ${FASTQ_DIR}/*.fastq.gz ${OUTPUT_DIR}/output_trimmed.fastq.gz \
+        ILLUMINACLIP:TruSeq3-SE.fa:2:30:10 LEADING:3 TRAILING:3 SLIDINGWINDOW:4:15 MINLEN:36
     # Alignment and quantification
     hisat2 -x ${GENOME_DIR}/genome_index -U ${OUTPUT_DIR}/output_trimmed.fastq.gz -S ${OUTPUT_DIR}/aligned_reads.sam
 fi
