@@ -17,15 +17,15 @@ The following tools and software packages are required to run this pipeline:
 ### Usage
 1. Set the following variables in the script:
   
-  - FASTQ_DIR: the path to the directory containing the input fastq files
-  - GENOME_DIR: the path to the directory containing the reference genome files
-  - ANNOTATION_FILE: the path to the GTF annotation file
-  - OUTPUT_DIR: the path to the directory where output files will be saved
+    - FASTQ_DIR: the path to the directory containing the input fastq files
+    - GENOME_DIR: the path to the directory containing the reference genome files
+    - ANNOTATION_FILE: the path to the GTF annotation file
+    - OUTPUT_DIR: the path to the directory where output files will be saved
 
 2. Run the script in a Linux terminal using bash:
   
-  - `chmod +x rna_seq_pipeline.sh`
-  - `bash RNAseq_pipeline.sh`
+    - `chmod +x rna_seq_pipeline.sh`
+    - `bash RNAseq_pipeline.sh`
 
 ### Pipeline Steps
   
